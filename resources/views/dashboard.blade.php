@@ -14,16 +14,7 @@
 
                         <!-- Header: Left side -->
                         <div class="flex">
-                            <!-- Hamburger button -->
-                            <button class="text-slate-500 c8sur ccry3" @click.stop="sidebarOpen = !sidebarOpen" aria-controls="sidebar" :aria-expanded="sidebarOpen" aria-expanded="false">
-                                <span class="czsjw">Open sidebar</span>
-                                <svg class="c7hxs cf7mc ceup6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="4" y="5" width="16" height="2"></rect>
-                                    <rect x="4" y="11" width="16" height="2"></rect>
-                                    <rect x="4" y="17" width="16" height="2"></rect>
-                                </svg>
-                            </button>
-
+                             
                         </div>
 
 
@@ -44,20 +35,26 @@
                                     <div class="cloy2">
                                         <div class="camw1 c4cuk ca8f5 clvip cev1n cm3dd">Select user</div>
                                         <ul class="c86fi">
-                                            @foreach($users as $user)
-                                            <li class="cc91t user-chat-btn" data-uid="{{$user->id}}" data-sid="{{\Auth::user()->id}}">
-                                                <button class="flex items-center rounded cc2cs c96ud cj7ph" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
-                                                    <div class="flex items-center rounded cc2cs c96ud cj7ph"> 
-                                                        <div class="chd3l">
-                                                            <span class="text-sm text-slate-800 dark:text-slate-100 cz4nn">{{$user->name}}</span>
-                                                        </div>
-                                                        <div class="flex items-center c4j6o">
-                                                            <div class="inline-flex rounded-full c12hv cd4ca cz4nn c7qs0 ci67q cev1n czv4r count_{{$user->id}}">{{App\Helpers\Helper::getUnreadmsgcount($user->id)}}</div>
-                                                        </div>
-                                                    </div> 
-                                                </button>
-                                            </li>
-                                            @endforeach
+                                            @if($users->count())
+                                                @foreach($users as $user)
+                                                <li class="cc91t user-chat-btn" data-uid="{{$user->id}}" data-sid="{{\Auth::user()->id}}">
+                                                    <button class="flex items-center rounded cc2cs c96ud cj7ph" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
+                                                        <div class="flex items-center rounded cc2cs c96ud cj7ph"> 
+                                                            <div class="chd3l">
+                                                                <span class="text-sm text-slate-800 dark:text-slate-100 cz4nn">{{$user->name}}</span>
+                                                            </div>
+                                                            <div class="flex items-center c4j6o">
+                                                                <div class="inline-flex rounded-full c12hv cd4ca cz4nn c7qs0 ci67q cev1n czv4r count_{{$user->id}}">{{App\Helpers\Helper::getUnreadmsgcount($user->id)}}</div>
+                                                            </div>
+                                                        </div> 
+                                                    </button>
+                                                </li>
+                                                @endforeach
+                                            @else
+                                            <div class="chd3l">
+                                                <span class="text-sm text-slate-800 dark:text-slate-100 cz4nn">No user Found</span>
+                                            </div>
+                                            @endif
                                         </ul>
                                     </div> 
                                 </div>
