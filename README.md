@@ -2,8 +2,6 @@
 <h2>Step 1: download in your system.</h2>  
     
         git clone  
-
-        cd 
     
 <h2>Step 2: Configure your database from .env file</h2> 
     
