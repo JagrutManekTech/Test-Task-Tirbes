@@ -6,13 +6,13 @@
         </x-slot>-->
 
     <div class="flex cejl6 cix4s" style="height: calc(100vh - 65px);">
-        <div class="flex caro7 cukpw calrm cic9p cdy6k scroll-div" x-ref="contentarea">
+        <div class="flex caro7 cukpw calrm cic9p cdy6k " x-ref="contentarea">
 
-            <header class="bg-white border-slate-200 dark:border-slate-700 cma9g cqyqv cjxzq cjgij cqjq5">
+<!--            <header class="bg-white border-slate-200 dark:border-slate-700 cma9g cqyqv cjxzq cjgij cqjq5">
                 <div class="c2ksj cxrsk cn2cr">
                     <div class="flex items-center cc2cs cpjdt cwdma">
 
-                        <!-- Header: Left side -->
+                         Header: Left side 
                         <div class="flex">
                              
                         </div>
@@ -20,14 +20,14 @@
 
                     </div>
                 </div>
-            </header>
-            <main class="cirqi">
+            </header>-->
+            <main class="cirqi c3noi">
 
-                <div class="flex calrm messages-main">
+                <div class="flex calrm messages-main c3noi">
 
                     <!-- Messages sidebar -->
-                    <div id="messages-sidebar" class="ctz4m cztd4 ci0xl cl6tz chzrn cw5sv c0zof c5x1m cwxu7 cdr4n chs7d c96ud cjgij cep39 -clu61" :class="msgSidebarOpen ? 'translate-x-0' : '-clu61'">
-                        <div class="bg-white border-slate-200 dark:border-slate-700 cu5uh crfg5 caro7 cukpw cj1np cz1vo cnqdg cbacq crb31 cjxzq cho2p">
+                    <div id="messages-sidebar" class="ctz4m cztd4 ci0xl cl6tz chzrn cw5sv c0zof c5x1m cwxu7 cdr4n chs7d c96ud cjgij cep39 -clu61 caro7 c3noi" :class="msgSidebarOpen ? 'translate-x-0' : '-clu61'">
+                        <div class="bg-white border-slate-200 dark:border-slate-700 cu5uh crfg5 caro7 cukpw cj1np cz1vo cnqdg cbacq crb31 cjxzq cho2p c3noi">
 
                             <!-- #users group -->
                             <div>  
@@ -66,7 +66,7 @@
 
 
                         <!-- Body -->
-                        <div class="c2ksj ca1fu cirqi cn2cr cm12e" id="messageWrapper"> 
+                        <div class="c2ksj ca1fu cirqi cn2cr cm12e cm7c4 scroll-div" id="messageWrapper" style="height: calc(100% - 64px);"> 
                             <!-- Chat msg -->
 
                             <!-- Chat msg --> 
