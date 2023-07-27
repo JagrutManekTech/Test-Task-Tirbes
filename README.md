@@ -12,13 +12,13 @@
         DB_USERNAME=root
         DB_PASSWORD=
     
-<h2>Step 3: Migrate</h2> 
-
-        php artisan migrate
-    
-<h2>Step 4: Install composer</h2> 
+<h2>Step 3: Install compose</h2> 
 
         composer install
+    
+<h2>Step 4: Migrate</h2> 
+        
+        php artisan migrate  
     
 <h2>Step 5: key generate</h2> 
 
