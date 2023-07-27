@@ -105,6 +105,29 @@
             e.preventDefault();
         }        
     });
+    $(document).on('click', '.delete-chat', function (e) {
+        if(confirm('Ara you sure?')){
+            let url = "delete-message";
+            let form = $(this);
+            let formData = new FormData();
+            let token = "{{ csrf_token() }}";
+            let message_id = $(this).data('id');
+            formData.append('message_id', message_id);
+            formData.append('_token', token);
+             
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                success: function (response) {
+                    $('.data-chat-'+message_id).remove();
+                }
+            });
+        }
+    });
     $(document).on('click', '.send-btn', function (e) {
         let message = $chatInput.val();
         sendMessage(message);
@@ -113,7 +136,7 @@
     function sendMessage(message) {
         if ($chatInput.val() !== '' && receiver != '') {
             $chatInput.val("");
-            appendMessageToSender({message: message});
+            
             let url = "send-message";
             let form = $(this);
             let formData = new FormData();
@@ -132,9 +155,7 @@
                 contentType: false,
                 dataType: 'JSON',
                 success: function (response) {
-//                        var receiver_id = response.data.receiver;
-//                        var element  = $("li[data-ele_id='"+receiver_id+"']");
-//                        element.insertBefore(element.siblings(':eq(0)'));
+                    appendMessageToSender({message: message,id : response.data.id});
                 }
             });
         }
@@ -161,9 +182,10 @@
  
         let userInfod = '<p class="inline-flex rounded-full c12hv cd4ca cz4nn c7qs0 ci67q cev3n czv4r mr-4">'+name.charAt(0).toUpperCase()+'</p>';
         let messageContentinfo = '<div class="text-sm border shadow-md cpxun cbg5x cdsge c6j37 c7qs0 ca5ph co6nx">' + message.message + '</div>';
-        let dateContentinfo = '<div class="flex items-center cc2cs"><div class="text-slate-500 cz4nn cev1n">' + (message.created_at ? timeFormat(message.created_at) : strTime) + '</div></div>';
+        let deleteinfo ='<div class="h-3 cb1p4 c7hxs cz1vo cpvja czxms delete-chat" data-id='+message.id+' ><i class="material-icons">delete</i></div>';
+        let dateContentinfo = '<div class="flex items-center cc2cs"><div class="text-slate-500 cz4nn cev1n">' + (message.created_at ? timeFormat(message.created_at) : strTime) + '</div>'+deleteinfo+'</div>';
 
-        let newMessage = '<div data-message="' + (message.message_id ? message.message_id : "") + '" class="flex cvtpv cai4l cjc22">'
+        let newMessage = '<div data-message="' + (message.id ? message.id : "") + '" class="flex cvtpv cai4l cjc22 data-chat-'+message.id+'">'
                 + userInfod + '<div>' + messageContentinfo + dateContentinfo + '</div>' +
                 '</div>';
 
@@ -176,6 +198,7 @@
         let userInfod = '<p class="inline-flex rounded-full c12hv cd4ca cz4nn c7qs0 ci67q cev3n czv4r mr-4">'+message.sender.name.charAt(0).toUpperCase()+'</p>';
 
         let messageContentinfo = '<div class="text-sm bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 shadow-md cbg5x c6j37 ca5ph co6nx">' + message.message + '</div>';
+         
         let dateContentinfo = '<div class="flex items-center cc2cs"><div class="text-slate-500 cz4nn cev1n">' + (message.created_at ? timeFormat(message.created_at) : strTime) + '</div></div>';
 
         let newMessage = '<div data-message="" class="flex cvtpv cai4l cjc22">'

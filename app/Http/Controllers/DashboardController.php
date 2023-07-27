@@ -21,7 +21,7 @@ class DashboardController extends BaseController {
         return view('dashboard', compact('users'));
     }
 
-    public function load_previous_messages(Request $request) {
+    public function LoadMessages(Request $request) {
 
         $sender = [];
         $sender['id'] = \Auth::user()->id;
@@ -68,6 +68,11 @@ class DashboardController extends BaseController {
                     'success' => true,
                     'message' => 'Message sent successfully'
         ]);
+    }
+    
+    public function DeleteMessages(Request $request) {
+        UserMessage::find($request->message_id)->delete();
+        return true;
     }
 
 }

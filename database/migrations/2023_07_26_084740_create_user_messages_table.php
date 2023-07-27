@@ -24,6 +24,7 @@ class CreateUserMessagesTable extends Migration
                 ->comment('1:seen');
             $table->tinyInteger('deliver_status')->default(0)
                 ->comment('1:delivered');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
