@@ -38,7 +38,7 @@
                                             @if($users->count())
                                                 @foreach($users as $user)
                                                 <li class="cc91t user-chat-btn" data-uid="{{$user->id}}" data-sid="{{\Auth::user()->id}}">
-                                                    <button class="flex items-center rounded cc2cs c96ud cj7ph" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
+                                                    <button class="flex items-center rounded cc2cs c96ud cj7ph" data-id="{{$user->id}}" @click="msgSidebarOpen = false; $refs.contentarea.scrollTop = 99999999;">
                                                         <div class="flex items-center rounded cc2cs c96ud cj7ph"> 
                                                             <div class="chd3l">
                                                                 <span class="text-sm text-slate-800 dark:text-slate-100 cz4nn">{{$user->name}}</span>
@@ -190,6 +190,8 @@
         $(".scroll-div").animate({scrollTop: $('.scroll-div').prop("scrollHeight")}, 1000);
     }
     function appendMessageToReceiver(message) {
+        console.log(message)
+
         let name = $('.chat-header .chat-name span').html();
         let image = $('.chat-header .chat-image').html();
         let userInfod = '<p class="inline-flex rounded-full c12hv cd4ca cz4nn c7qs0 ci67q cev3n czv4r mr-4">'+message.sender.name.charAt(0).toUpperCase()+'</p>';
@@ -243,5 +245,32 @@
         $(this).children('button').addClass('cgq6l');
  
     });
-
+    setInterval(function(){ 
+    getnewmessages();
+}, 1000);
+    
+    function getnewmessages() {
+        var userid = $('.cgq6l').data('id'); 
+        if(userid !== undefined){
+            let url = "get-messages";
+            let form = $(this);
+            let formData = new FormData();
+            let token = "{{ csrf_token() }}"; 
+            formData.append('_token', token);
+            formData.append('receiver', userid); 
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'JSON',
+                success: function (response) {
+                    if (response.data.messages.length !== 0) {
+                        appendMessageToReceiver(response.data.messages);
+                    }
+                }
+            });
+        }
+    }
 </script>

@@ -21,6 +21,26 @@ class DashboardController extends BaseController {
         return view('dashboard', compact('users'));
     }
 
+    public function GetMessages(Request $request) {
+        $sender = [];
+        $sender['id'] = \Auth::user()->id;
+
+        $receiver = [];
+        $receiver['id'] = $request->receiver; 
+         
+        $previousConversation = UserMessage::with('sender', 'receiver')->where(function ($q) use ($sender, $receiver) {
+                            $q->where(function ($q) use ($receiver) {
+                                $q->where('sender_id', $receiver['id']);
+                            })->where(function ($q) use ($sender) {
+                                $q->where('receiver_id', $sender['id']);
+                            })->where('seen_status',0);
+                        })->orderby('id', 'asc')->first();
+        if(!empty($previousConversation)){
+            $previousConversation->seen_status = 1;
+            $previousConversation->save();                    
+        }  
+        return response()->json(['success' => true, 'data' => ['messages' => (!empty($previousConversation))?$previousConversation:[]]]);
+    }
     public function LoadMessages(Request $request) {
 
         $sender = [];
